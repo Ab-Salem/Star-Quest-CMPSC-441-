@@ -1,92 +1,130 @@
-# Star-Quest-CMPSC-441-
+# 3D Maze Game
 
-This project is a simple 2D grid-based game built using Python and Pygame. Players navigate a maze while avoiding an enemy and trying to reach the goal. The game dynamically changes the maze and offers difficulty levels to provide a challenging experience.
+A 3D maze game implemented in Python using PyOpenGL and Pygame. Navigate through a procedurally generated maze while being chased by an AI-controlled enemy that uses different pathfinding algorithms.
 
 ## Features
 
-- **Maze Generation**: Randomly generated mazes with multiple paths.
-- **Dynamic Maze Changes**: Maze updates periodically, adding to the challenge.
-- **A* Pathfinding**: The enemy uses the A* algorithm to pursue the player.
-- **Difficulty Levels**: Choose between Easy, Medium, and Hard modes to adjust the game's challenge.
-
-## Gameplay
-
-- The player starts at the top-left corner of the grid and must navigate to the bottom-right corner.
-- Avoid the enemy, which dynamically follows the player.
-- Reach the goal before getting caught by the enemy.
-
-## Controls
-
-- Use arrow keys (`↑`, `↓`, `←`, `→`) to move the player.
-- Avoid obstacles and the enemy to reach the goal.
+- 3D maze environment with first-person and overhead camera views
+- Multiple AI pathfinding algorithms for enemy behavior:
+  - A* Search (optimal pathfinding)
+  - Breadth-First Search (shortest path)
+  - Depth-First Search (depth exploration)
+  - Greedy Best-First Search (direct pursuit)
+- Different maze sizes for varying difficulty levels
+- Grid-based movement system
+- Enemy that shoots bouncing fireballs
+- Dynamic lighting and 3D rendering
+- Interactive start menu for game configuration
 
 ## Requirements
 
 - Python 3.x
-- Pygame library
+- PyOpenGL
+- Pygame
+- NumPy
 
-To install Pygame, use:
+## Installation
 
+1. Clone the repository:
 ```bash
-pip install pygame
+git clone https://github.com/Ab-Salem/Star-Quest-CMPSC-441-.git
+cd Star-Quest-CMPSC-441-
 ```
 
-## How to Play
-
-1. Clone or download the repository.
-2. Run the game script:
-
-   ```bash
-   python game.py
-   ```
-
-3. Select a difficulty level:
-   - **1**: Easy
-   - **2**: Medium
-   - **3**: Hard
-4. Use the arrow keys to navigate the maze.
-5. Avoid the enemy and reach the green goal block.
-
-## File Structure
-
-- `game.py`: Main game script.
-
-## Code Highlights
-
-### Maze Generation
-
-The maze is generated using a recursive backtracking algorithm with added random paths for multiple solutions:
-
-```python
-def generate_maze(grid_size):
-    # Recursive backtracking algorithm
-    ...
+2. Install required packages:
+```bash
+pip install pygame PyOpenGL numpy
 ```
 
-### A* Pathfinding
+## Running the Game
 
-The enemy uses the A* algorithm to find the shortest path to the player:
-
-```python
-def a_star_search(start, goal, grid):
-    # A* search implementation
-    ...
+Run the game using:
+```bash
+python main.py
 ```
 
-### Dynamic Difficulty
+## Controls
 
-The game changes the maze periodically based on the selected difficulty:
+### Menu Controls
+- UP/DOWN: Select AI algorithm
+- SHIFT + UP/DOWN: Select maze size
+- ENTER: Start game
 
-- **Easy**: Long intervals, slower enemy.
-- **Medium**: Moderate intervals, faster enemy.
-- **Hard**: Short intervals, very fast enemy.
+### Game Controls
+- Arrow UP/DOWN: Move forward/backward
+- Arrow LEFT/RIGHT: 
+  - In overhead view: Rotate camera
+  - In first-person view: Strafe left/right
+- V: Switch between first-person and overhead view
+- ESC: Quit game
+- 1-4: Switch enemy AI algorithm during gameplay
+  - 1: A* Search
+  - 2: Breadth-First Search
+  - 3: Depth-First Search
+  - 4: Greedy Best-First Search
 
-## Future Enhancements
+## Project Structure
 
-- Add more obstacles and power-ups.
-- Introduce additional enemy AI behaviors.
-- Implement multiplayer mode.
-
-
-Enjoy the game!
 ```
+maze_game/
+├── config.py           # Game configuration and constants
+├── maze_generator.py   # Maze generation algorithm
+├── renderer.py         # OpenGL rendering engine
+├── pathfinding.py      # AI pathfinding algorithms
+├── game_objects.py     # Game entity classes
+├── game.py            # Main game logic
+├── menu.py            # Start menu system
+└── main.py            # Entry point
+```
+
+## Game Mechanics
+
+- Navigate through the maze to find the exit (green tile)
+- Avoid the enemy (red cube) and its fireballs
+- Enemy uses pathfinding to chase the player
+- Fireballs bounce off walls
+- Game ends when either:
+  - Player reaches the exit (win)
+  - Player gets hit by a fireball (lose)
+
+## Difficulty Levels
+
+- Small (10x10): Easy difficulty, shorter paths to exit
+- Medium (15x15): Moderate difficulty, more complex maze
+- Large (20x20): Hard difficulty, challenging navigation
+
+## AI Algorithms
+
+1. **A* Search**
+   - Optimal pathfinding
+   - Balances distance and heuristic
+   - Most efficient chase behavior
+
+2. **Breadth-First Search (BFS)**
+   - Guarantees shortest path
+   - Explores uniformly
+   - Methodical pursuit
+
+3. **Depth-First Search (DFS)**
+   - May not find shortest path
+   - Creates unpredictable chase patterns
+   - More erratic movement
+
+4. **Greedy Best-First**
+   - Always moves toward player
+   - Can get stuck in local minima
+   - Aggressive pursuit behavior
+
+## Contributing
+
+Feel free to fork the project and submit pull requests. For major changes, please open an issue first to discuss what you would like to change.
+
+## License
+
+[MIT](https://choosealicense.com/licenses/mit/)
+
+## Acknowledgments
+
+- Pygame community for graphics and game loop handling
+- PyOpenGL for 3D rendering capabilities
+- Various pathfinding algorithm implementations
