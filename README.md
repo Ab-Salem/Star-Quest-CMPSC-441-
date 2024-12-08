@@ -117,14 +117,5 @@ maze_game/
 
 ## Contributing
 
-Feel free to fork the project and submit pull requests. For major changes, please open an issue first to discuss what you would like to change.
-
-## License
-
-[MIT](https://choosealicense.com/licenses/mit/)
-
-## Acknowledgments
-
-- Pygame community for graphics and game loop handling
-- PyOpenGL for 3D rendering capabilities
-- Various pathfinding algorithm implementations
+- Abdallah Salem
+- Huy Nguyen
