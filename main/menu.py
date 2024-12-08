@@ -73,6 +73,7 @@ class Menu:
                              selected=(i == self.selected_algorithm))
             
             # Draw maze size selection text
+            '''
             self.draw_text("Select Maze Size:", self.font, self.WHITE,
                           self.WINDOW_SIZE[0] // 2, 420)
             
@@ -82,6 +83,7 @@ class Menu:
                 self.draw_text(size_name, self.font, self.WHITE,
                              self.WINDOW_SIZE[0] // 2, y_pos,
                              selected=(i == self.selected_size))
+            '''
                 
             # Draw start instructions
             self.draw_text("Press ENTER to Start", self.font, self.GRAY,
