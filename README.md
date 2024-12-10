@@ -1,5 +1,7 @@
 # 2D Maze Game
 A 2D maze game implemented in Python using Pygame. Navigate through a procedurally generated maze while being chased by an AI-controlled enemy that uses different pathfinding algorithms.
+## Github Repository Link
+https://github.com/Ab-Salem/Star-Quest-CMPSC-441-
 
 ## Purpose
 This project demonstrates the implementation and comparison of different pathfinding algorithms in a real-time gaming environment. It serves as an educational tool to visualize how different search algorithms behave in practice, while providing an engaging gaming experience.
@@ -52,7 +54,7 @@ python main.py
 
 ## Project Structure
 ```
-maze_game/
+CMPSC 441 Final/
 ├── constants.py       # Game configuration and constants
 ├── generated_maze.py  # Maze generation algorithm
 ├── pathfinding.py     # AI pathfinding algorithms
