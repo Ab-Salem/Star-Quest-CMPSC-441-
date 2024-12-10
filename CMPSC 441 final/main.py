@@ -20,8 +20,8 @@ def main():
 
     # Map difficulty to max_depth
     difficulty_levels = {
-        "easy": 500,  # Limited depth for easy
-        "medium": 750,  # Moderate depth for medium
+        "easy": 1000,  # Limited depth for easy
+        "medium": 1500,  # Moderate depth for medium
         "hard": float("inf"),  # Unlimited depth for hard
     }
     max_depth = difficulty_levels[difficulty]

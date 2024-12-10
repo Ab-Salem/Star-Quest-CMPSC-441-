@@ -43,81 +43,90 @@ def a_star_search(start, goal, grid, max_depth=float("inf")):
 
 def bfs(start, goal, grid, max_depth=float("inf")):
     """Perform BFS to find a path with limited depth."""
-    queue = deque([(start, 0)])  # Track depth with each node
-    came_from = {start: None}
+    from collections import deque
 
-    while queue:
-        current, depth = queue.popleft()
+    queue = deque([(start, [start])])  # Track the path with each node
+    visited = {start}
+    depth = 0
 
-        if depth >= max_depth:
-            break  # Stop if depth exceeds max_depth
+    while queue and depth < max_depth:
+        current, path = queue.popleft()
+        depth += 1
 
         if current == goal:
-            path = []
-            while current:
-                path.append(current)
-                current = came_from[current]
-            return path[::-1]
+            return path[1:]  # Return path without the start position
 
         for dx, dy in [(-1, 0), (1, 0), (0, -1), (0, 1)]:
-            neighbor = (current[0] + dx, current[1] + dy)
-            if (0 <= neighbor[0] < len(grid) and 0 <= neighbor[1] < len(grid)
-                    and grid[neighbor[1]][neighbor[0]] == 0 and neighbor not in came_from):
-                came_from[neighbor] = current
-                queue.append((neighbor, depth + 1))
-    return []  # Return an incomplete path
-
+            next_x = current[0] + dx
+            next_y = current[1] + dy
+            neighbor = (next_x, next_y)
+            
+            if (0 <= next_x < len(grid) and 
+                0 <= next_y < len(grid) and 
+                grid[next_y][next_x] == 0 and 
+                neighbor not in visited):
+                visited.add(neighbor)
+                queue.append((neighbor, path + [neighbor]))
+    
+    return []  # Return empty path if no path found
 
 def dfs(start, goal, grid, max_depth=float("inf")):
     """Perform DFS to find a path with limited depth."""
-    stack = [(start, 0)]  # Track depth with each node
-    came_from = {start: None}
+    stack = [(start, [start])]  # Track the path with each node
+    visited = {start}
+    depth = 0
 
-    while stack:
-        current, depth = stack.pop()
-
-        if depth >= max_depth:
-            continue  # Skip nodes beyond max_depth
+    while stack and depth < max_depth:
+        current, path = stack.pop()
+        depth += 1
 
         if current == goal:
-            path = []
-            while current:
-                path.append(current)
-                current = came_from[current]
-            return path[::-1]
+            return path[1:]  # Return path without the start position
 
         for dx, dy in [(-1, 0), (1, 0), (0, -1), (0, 1)]:
-            neighbor = (current[0] + dx, current[1] + dy)
-            if (0 <= neighbor[0] < len(grid) and 0 <= neighbor[1] < len(grid)
-                    and grid[neighbor[1]][neighbor[0]] == 0 and neighbor not in came_from):
-                came_from[neighbor] = current
-                stack.append((neighbor, depth + 1))
-    return []  # Return an incomplete path
-
+            next_x = current[0] + dx
+            next_y = current[1] + dy
+            neighbor = (next_x, next_y)
+            
+            if (0 <= next_x < len(grid) and 
+                0 <= next_y < len(grid) and 
+                grid[next_y][next_x] == 0 and 
+                neighbor not in visited):
+                visited.add(neighbor)
+                stack.append((neighbor, path + [neighbor]))
+    
+    return []  # Return empty path if no path found
 
 def greedy(start, goal, grid, max_depth=float("inf")):
-    """Perform Greedy Best-First Search to find a path with limited depth."""
-    open_set = []
-    heapq.heappush(open_set, (heuristic(start, goal), start))
-    came_from = {start: None}
-    steps = 0
+    """Perform Greedy Best-First Search to find a path."""
+    import heapq
+    
+    def heuristic(a, b):
+        return abs(a[0] - b[0]) + abs(a[1] - b[1])
 
-    while open_set and steps < max_depth:
-        _, current = heapq.heappop(open_set)
-        steps += 1
+    pq = [(heuristic(start, goal), start, [start])]  # Include path in queue
+    visited = {start}
+    depth = 0
+
+    while pq and depth < max_depth:
+        _, current, path = heapq.heappop(pq)
+        depth += 1
 
         if current == goal:
-            path = []
-            while current:
-                path.append(current)
-                current = came_from[current]
-            return path[::-1]
+            return path[1:]  # Return path without the start position
 
         for dx, dy in [(-1, 0), (1, 0), (0, -1), (0, 1)]:
-            neighbor = (current[0] + dx, current[1] + dy)
-            if (0 <= neighbor[0] < len(grid) and 0 <= neighbor[1] < len(grid)
-                    and grid[neighbor[1]][neighbor[0]] == 0 and neighbor not in came_from):
-                came_from[neighbor] = current
-                heapq.heappush(open_set, (heuristic(neighbor, goal), neighbor))
-    return []  # Return an incomplete path
+            next_x = current[0] + dx
+            next_y = current[1] + dy
+            neighbor = (next_x, next_y)
+            
+            if (0 <= next_x < len(grid) and 
+                0 <= next_y < len(grid) and 
+                grid[next_y][next_x] == 0 and 
+                neighbor not in visited):
+                visited.add(neighbor)
+                h = heuristic(neighbor, goal)
+                heapq.heappush(pq, (h, neighbor, path + [neighbor]))
+    
+    return []  # Return empty path if no path found
 
